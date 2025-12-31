@@ -37,7 +37,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [currentLocale] = useState<Locale>(getInitialLocale);
   const [errorMessage, setErrorMessage] = useState(
-    error === "CredentialsSignin" ? t("auth.invalidCredentials") : ""
+    error ? (error === "CredentialsSignin" ? t("auth.invalidCredentials") : error) : ""
   );
 
   const handleSubmit = async (e: React.FormEvent) => {

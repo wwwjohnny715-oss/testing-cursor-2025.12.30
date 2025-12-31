@@ -1,0 +1,3 @@
+module.exports=[23109,a=>{"use strict";a.s(["defaultLocale",0,"zh-TW","locales",0,["zh-TW","zh-CN","en"]])},7813,a=>{a.v(b=>Promise.all(["server/chunks/ssr/src_i18n_messages_en_json_c3d5c412._.js"].map(b=>a.l(b))).then(()=>b(11252)))},10611,a=>{a.v(b=>Promise.all(["server/chunks/ssr/src_i18n_messages_zh-CN_json_f4112d90._.js"].map(b=>a.l(b))).then(()=>b(20020)))},61113,a=>{a.v(b=>Promise.all(["server/chunks/ssr/src_i18n_messages_zh-TW_json_701fed11._.js"].map(b=>a.l(b))).then(()=>b(61467)))}];
+
+//# sourceMappingURL=src_i18n_0d2f5ec4._.js.map

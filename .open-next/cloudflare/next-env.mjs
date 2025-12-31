@@ -1,3 +1,0 @@
-export const production = {"DATABASE_URL":"postgresql://postgres:postgres@localhost:5432/tutoring_center","AUTH_SECRET":"super-secret-key-for-tutoring-center-auth-2024","NEXTAUTH_URL":"http://localhost:3000"};
-export const development = {"DATABASE_URL":"postgresql://postgres:postgres@localhost:5432/tutoring_center","AUTH_SECRET":"super-secret-key-for-tutoring-center-auth-2024","NEXTAUTH_URL":"http://localhost:3000"};
-export const test = {"DATABASE_URL":"postgresql://postgres:postgres@localhost:5432/tutoring_center","AUTH_SECRET":"super-secret-key-for-tutoring-center-auth-2024","NEXTAUTH_URL":"http://localhost:3000"};

@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// =====================
+// Models
+// =====================
+
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password_hash String
+  role          String   // admin | teacher
+  teacher_id    String?  @unique
+  teacher       Teacher? @relation(fields: [teacher_id], references: [id])
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Teacher {
+  id          String   @id @default(cuid())
+  teacherCode String   @unique @map("teacher_code")
+  name        String
+  subjects    String   // JSON string array
+  hire_date   DateTime @map("hire_date")
+  status      String   @default("active") // active | inactive
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  user    User?
+  courses Course[]
+
+  @@map("teachers")
+}
+
+model Student {
+  id                String    @id @default(cuid())
+  studentCode       String    @unique @map("student_code")
+  name              String
+  phone             String
+  grade             String
+  first_enrolled_at DateTime? @map("first_enrolled_at")
+  is_deleted        Boolean   @default(false) @map("is_deleted")
+  created_at        DateTime  @default(now())
+  updated_at        DateTime  @updatedAt
+
+  enrollments Enrollment[]
+  attendances Attendance[]
+
+  @@map("students")
+}
+
+model Course {
+  id         String   @id @default(cuid())
+  courseCode String   @unique @map("course_code")
+  teacher_id String   @map("teacher_id")
+  teacher    Teacher  @relation(fields: [teacher_id], references: [id])
+  grades     String   // JSON string array
+  is_deleted Boolean  @default(false) @map("is_deleted")
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  sessions    Session[]
+  enrollments Enrollment[]
+
+  @@map("courses")
+}
+
+model Session {
+  id               String   @id @default(cuid())
+  sessionCode      String   @unique @map("session_code")
+  course_id        String   @map("course_id")
+  course           Course   @relation(fields: [course_id], references: [id])
+  date             DateTime
+  start_time       String
+  end_time         String
+  duration_minutes Int      @map("duration_minutes")
+  created_at       DateTime @default(now())
+  updated_at       DateTime @updatedAt
+
+  attendances Attendance[]
+
+  @@map("sessions")
+}
+
+model Enrollment {
+  id         String    @id @default(cuid())
+  course_id  String    @map("course_id")
+  course     Course    @relation(fields: [course_id], references: [id])
+  student_id String    @map("student_id")
+  student    Student   @relation(fields: [student_id], references: [id])
+  joined_at  DateTime  @default(now()) @map("joined_at")
+  ended_at   DateTime? @map("ended_at")
+  is_active  Boolean   @default(true) @map("is_active")
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+
+  @@unique([course_id, student_id])
+  @@map("enrollments")
+}
+
+model Attendance {
+  id         String   @id @default(cuid())
+  session_id String   @map("session_id")
+  session    Session  @relation(fields: [session_id], references: [id])
+  student_id String   @map("student_id")
+  student    Student  @relation(fields: [student_id], references: [id])
+  status     String   // present | absent
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([session_id, student_id])
+  @@map("attendance")
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  user_id     String?  @map("user_id")
+  action      String
+  entity_type String   @map("entity_type")
+  entity_id   String?  @map("entity_id")
+  details     String?  // JSON string
+  ip_address  String?  @map("ip_address")
+  created_at  DateTime @default(now())
+
+  @@map("audit_logs")
+}

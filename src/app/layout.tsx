@@ -6,8 +6,8 @@ import { Toaster } from "@/components/ui/sonner";
 import { SessionProvider } from "@/components/providers";
 
 export const metadata: Metadata = {
-  title: "补习社管理系统 | Tutoring Center",
-  description: "补习社管理系统 - 学生、老师、课程、点名、统计",
+  title: "香港質心教育 管理系統 | COMET Management System",
+  description: "香港質心教育管理系統 - 學生、老師、課程、點名、統計",
 };
 
 export default async function RootLayout({

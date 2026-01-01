@@ -132,22 +132,6 @@ export default function LoginPage() {
               )}
             </Button>
           </form>
-
-          <div className="mt-6 pt-6 border-t border-border/50">
-            <p className="text-xs text-muted-foreground text-center">
-              Test Accounts
-            </p>
-            <div className="mt-2 space-y-1 text-xs text-muted-foreground">
-              <p className="flex justify-between">
-                <span>Admin:</span>
-                <span className="font-mono">admin@tutoring.com / admin123</span>
-              </p>
-              <p className="flex justify-between">
-                <span>Teacher:</span>
-                <span className="font-mono">chen@tutoring.com / teacher123</span>
-              </p>
-            </div>
-          </div>
         </CardContent>
       </Card>
     </main>
